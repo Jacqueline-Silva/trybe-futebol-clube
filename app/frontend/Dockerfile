@@ -1,5 +1,13 @@
-# FROM node:16.14-alpine
-# WORKDIR /app-frontend
-#  ...
+FROM node:16.14-alpine
 
-# iniciando o projeto
+WORKDIR /app-frontend
+
+COPY package* ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"] 
