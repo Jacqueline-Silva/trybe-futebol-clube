@@ -1,7 +1,10 @@
-export default interface IUser {
-  id: number
+export interface IUser {
+  id?: number
   email: string
-  password: string
   username: string
   role: string
+}
+
+export interface IUserWithPassword extends IUser {
+  password: string,
 }

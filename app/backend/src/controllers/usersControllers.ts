@@ -13,7 +13,7 @@ export default class UsersController {
   validation = (req: Request, res: Response, next: NextFunction) => {
     const validation = runSchema(req.body);
     if (validation.error) {
-      return res.status(400).json({ message: 'All fields must be filled' });
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'All fields must be filled' });
     }
     next();
   };

@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import 'dotenv/config';
-import IUser from './interfaces/IUser';
+import { IUser } from './interfaces/IUser';
 
 export default class JwtService {
   static createToken = (data: IUser): string => {
