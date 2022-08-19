@@ -28,4 +28,9 @@ export default class UserService {
     const token: string = JwtService.createToken(withoutPassword);
     return token;
   };
+
+  verifyToken = async (token: string): Promise<string> => {
+    const data: IUser = await JwtService.verifyToken(token);
+    return data.role;
+  };
 }

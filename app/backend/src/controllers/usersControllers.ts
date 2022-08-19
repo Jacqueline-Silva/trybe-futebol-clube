@@ -24,4 +24,17 @@ export default class UsersController {
     const token = await this._services.login(email, password);
     res.status(StatusCodes.OK).json({ token });
   };
+
+  verifyToken = async (req: Request, res: Response, _next: NextFunction) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      const err = new Error('Invalid token');
+      err.name = 'UnauthorizedError';
+      throw err;
+    }
+
+    const role = await this._services.verifyToken(token);
+    res.status(StatusCodes.OK).json({ role });
+  };
 }
