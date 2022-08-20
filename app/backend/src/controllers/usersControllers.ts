@@ -4,12 +4,6 @@ import runSchema from '../services/validateLogin';
 import UserService from '../services/userService';
 
 export default class UsersController {
-  private _services: UserService;
-
-  constructor() {
-    this._services = new UserService();
-  }
-
   validation = (req: Request, res: Response, next: NextFunction) => {
     const validation = runSchema(req.body);
     if (validation.error) {
@@ -21,7 +15,7 @@ export default class UsersController {
   login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    const token = await this._services.login(email, password);
+    const token = await UserService.login(email, password);
     res.status(StatusCodes.OK).json({ token });
   };
 
@@ -34,7 +28,7 @@ export default class UsersController {
       throw err;
     }
 
-    const role = await this._services.verifyToken(token);
+    const role = await UserService.verifyToken(token);
     res.status(StatusCodes.OK).json({ role });
   };
 }

@@ -5,7 +5,7 @@ import { IUser, IUserWithPassword } from './interfaces/IUser';
 import JwtService from './jwtService';
 
 export default class UserService {
-  login = async (email:string, password:string): Promise<string> => {
+  static login = async (email:string, password:string): Promise<string> => {
     const user: IUserWithPassword | null = await User.findOne({
       where: { email },
     });
@@ -29,7 +29,7 @@ export default class UserService {
     return token;
   };
 
-  verifyToken = async (token: string): Promise<string> => {
+  static verifyToken = async (token: string): Promise<string> => {
     const data: IUser = await JwtService.verifyToken(token);
     return data.role;
   };
