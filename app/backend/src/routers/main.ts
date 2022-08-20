@@ -1,5 +1,6 @@
+import TeamController from '../controllers/teamsController';
 import UserController from '../controllers/usersControllers';
 
-const userController = new UserController();
+export const userController = new UserController();
 
-export default userController;
+export const teamsController = new TeamController();
