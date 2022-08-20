@@ -11,9 +11,6 @@ const errorMiddleware: ErrorRequestHandler = (err, _req, res, _next) => {
     case 'NotFoundError':
       res.status(StatusCodes.NOT_FOUND).json({ message });
       break;
-    case 'ConflictError':
-      res.status(StatusCodes.CONFLICT).json({ message });
-      break;
     case 'UnauthorizedError':
       res.status(StatusCodes.UNAUTHORIZED).json({ message });
       break;
