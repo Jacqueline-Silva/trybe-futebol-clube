@@ -10,14 +10,13 @@ export default class JwtService {
   };
 
   static verifyToken = async (token: string): Promise<IUser> => {
-    const { data } = jwt.verify(token, process.env.JWT_SECRET as string) as IJwtPayload;
-
-    if (!data || data === null) {
-      const err = new Error('Token must be a valid token');
-      err.name = 'UnauthorizedError';
-      throw err;
+    try {
+      const { data } = jwt.verify(token, process.env.JWT_SECRET as string) as IJwtPayload;
+      return data;
+    } catch (err) {
+      const error = new Error('Token must be a valid token');
+      error.name = 'UnauthorizedError';
+      throw error;
     }
-
-    return data;
   };
 }
