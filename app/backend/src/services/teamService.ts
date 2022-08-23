@@ -11,7 +11,7 @@ export default class TeamService {
     const teamID = await Team.findByPk(id);
 
     if (!teamID) {
-      const err = new Error('teamID not found');
+      const err = new Error('There is no team with such id!');
       err.name = 'NotFoundError';
       throw err;
     }

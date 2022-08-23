@@ -1,6 +1,8 @@
+import 'express-async-errors';
 import Team from '../database/models/Team';
 import Match from '../database/models/Match';
-import { IMatches } from './interfaces/IMatches';
+import { IMatches, INewMatch } from './interfaces/IMatches';
+import TeamService from './teamService';
 
 export default class MatchService {
   static getAll = async (): Promise<IMatches[]> => {
@@ -22,5 +24,32 @@ export default class MatchService {
       where: { inProgress },
     });
     return matchesInProgress;
+  };
+
+  static saveInProgress = async (newMatch: INewMatch) => {
+    const { homeTeam, awayTeam } = newMatch;
+    await TeamService.getTeamID(+homeTeam);
+    await TeamService.getTeamID(+awayTeam);
+
+    if (homeTeam === awayTeam) {
+      const err = new Error('It is not possible to create a match with two equal teams');
+      err.name = 'UnauthorizedError';
+      throw err;
+    }
+
+    const news = await Match.create({
+      ...newMatch,
+      inProgress: true,
+    });
+
+    return news;
+  };
+
+  static updateInProgress = async (id: number) => {
+    await Match.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return 'Finished';
   };
 }
