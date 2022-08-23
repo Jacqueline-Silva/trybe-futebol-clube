@@ -1,8 +1,11 @@
+export interface IMatchUpdateGoals {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+}
+
 export interface INewMatch {
   homeTeam: number,
-  homeTeamGoals: number,
   awayTeam: number,
-  awayTeamGoals: number,
 }
 
 export interface IMatches extends INewMatch {

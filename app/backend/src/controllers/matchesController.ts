@@ -41,4 +41,12 @@ export default class MatchesController {
     const message = await MatchService.updateInProgress(+id);
     res.status(StatusCodes.OK).json({ message });
   };
+
+  upadateMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const newResultMatch = req.body;
+
+    const updateMatch = await MatchService.upadateMatch(+id, newResultMatch);
+    res.status(StatusCodes.OK).json(updateMatch);
+  };
 }
