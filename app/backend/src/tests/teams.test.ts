@@ -53,7 +53,7 @@ describe('/teams/:id', () => {
   describe('Falha ao acessar o endpoint /teams/:id', () => {
     it('Verifica se retorna mensagem de erro ao não encontrar o time', async () => {
       sinon.stub(Team, 'findByPk').resolves(null);
-      const message = 'teamID not found';
+      const message = 'There is no team with such id!';
 
       const response = await chai
         .request(app).get('/teams/1000');
