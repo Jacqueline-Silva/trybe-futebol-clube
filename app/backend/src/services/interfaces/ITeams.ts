@@ -8,24 +8,11 @@ export interface ITeams {
 export interface ITeamMatches extends Team {
   id: number,
   teamName: string,
-  teamHome: [],
+  homeMatches: [],
+  awayMatches: [],
+  teamHome: number,
   awayTeam: number,
   homeTeamGoals: number,
   awayTeamGoals: number,
   inProgress: boolean,
-}
-
-export interface ITeamResult {
-  id: number,
-  teamName: string,
-  teamHome: [
-    {
-      id: number,
-      homeTeam: number,
-      awayTeam: number,
-      homeTeamGoals: number,
-      awayTeamGoals: number,
-      inProgress: boolean,
-    },
-  ]
 }

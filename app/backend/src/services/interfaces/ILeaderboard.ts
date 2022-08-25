@@ -1,5 +1,5 @@
 export interface ITeamBoard {
-  name?: string,
+  name: string,
   totalPoints: number,
   totalGames: number,
   totalVictories: number,
@@ -8,5 +8,5 @@ export interface ITeamBoard {
   goalsFavor: number,
   goalsOwn: number,
   goalsBalance: number,
-  efficiency?: number,
+  efficiency: number,
 }
