@@ -32,4 +32,18 @@ export default class LeaderboardsService {
     const orderBy = LeardeboardOrderBoard.orderBoard(result);
     return orderBy;
   };
+
+  static getBoardAll = async () => {
+    const teamsHome = await this.getBoardHome();
+    const teamsAway = await this.getBoardAway();
+
+    const board = teamsHome.map((home) => {
+      const result = teamsAway.find((away) => home.name === away.name);
+      if (!result) throw new Error();
+      return LeardeboardGenerate.generateTotalBoard(home, result);
+    });
+
+    const orderBy = LeardeboardOrderBoard.orderBoard(board);
+    return orderBy;
+  };
 }

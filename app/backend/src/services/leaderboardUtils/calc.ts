@@ -1,3 +1,4 @@
+import { ITeamBoard } from '../interfaces/ILeaderboard';
 import { ITeamMatches } from '../interfaces/ITeams';
 
 export default class CalcResults {
@@ -72,5 +73,12 @@ export default class CalcResults {
   static totalGoalsBalance = (matches: ITeamMatches[], who: string) => {
     const result = this.totalGoalsFavor(matches, who) - this.totalGoalsOwn(matches, who);
     return result;
+  };
+
+  static totalEfficiencyInMatches = (home: ITeamBoard, away: ITeamBoard) => {
+    const totalP = home.totalPoints + away.totalPoints;
+    const totalG = home.totalGames + away.totalGames;
+    const result = +((totalP / (totalG * 3)) * 100);
+    return +(result.toFixed(2));
   };
 }

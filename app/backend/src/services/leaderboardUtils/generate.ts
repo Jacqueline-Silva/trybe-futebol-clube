@@ -21,4 +21,20 @@ export default class LeardeboardGenerate {
     });
     return result;
   };
+
+  static generateTotalBoard = (home: ITeamBoard, away: ITeamBoard) => {
+    const result = {
+      name: home.name,
+      totalPoints: home.totalPoints + away.totalPoints,
+      totalGames: home.totalGames + away.totalGames,
+      totalVictories: home.totalVictories + away.totalVictories,
+      totalDraws: home.totalDraws + away.totalDraws,
+      totalLosses: home.totalLosses + away.totalLosses,
+      goalsFavor: home.goalsFavor + away.goalsFavor,
+      goalsOwn: home.goalsOwn + away.goalsOwn,
+      goalsBalance: home.goalsBalance + away.goalsBalance,
+      efficiency: CalcResults.totalEfficiencyInMatches(home, away),
+    };
+    return result;
+  };
 }
