@@ -18,4 +18,18 @@ export default class LeaderboardsService {
     const orderBy = LeardeboardOrderBoard.orderBoard(result);
     return orderBy;
   };
+
+  static getAway = async () => {
+    const result = await Team.findAll({
+      include: [
+        { model: Match, as: 'awayMatches', where: { inProgress: false } }],
+    });
+    return result as ITeamMatches[];
+  };
+
+  static getBoardAway = async () => {
+    const result = LeardeboardGenerate.createBoardTeam(await this.getAway(), 'away');
+    const orderBy = LeardeboardOrderBoard.orderBoard(result);
+    return orderBy;
+  };
 }
