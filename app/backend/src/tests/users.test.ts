@@ -1,6 +1,7 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
@@ -74,12 +75,33 @@ describe('/login/validate', () => {
 
   describe('Sucesso ao acessar endpoint /login/validate', () => {
     it('Verifica se retorna status 200', async () => {
-      sinon.stub(JwtService, 'verifyToken').resolves(userMock);
-      sinon.stub(UserService, 'verifyToken').resolves(userMock.role);
+      // sinon.stub(JwtService, 'verifyToken').resolves(userMock);
+      const t = sinon.stub(jwt, 'verify').resolves(userJwtMock);
       const response = await chai
         .request(app).get('/login/validate').set({'Authorization': 'tokenMock'});
+      console.log('res', response.body)
       expect(response.status).to.be.equal(200);
       expect(response.body).to.be.deep.equal(roleMock);
+    });
+  });
+
+  describe('Falha ao acessar endpoint /login/validate', () => {
+    it('Verifica se retorna um erro ao não enviar o token', async () => {
+      const message = 'Invalid token';
+      
+      const response = await chai
+        .request(app).get('/login/validate').set({'Authorization': ''});
+      expect(response.error.status).to.be.equal(401)
+      expect(response.body).to.be.deep.equal({ message })
+    });
+    it('Verifica se retorna um erro ao enviar token inválido', async () => {
+      sinon.stub(jwt, 'verify').withArgs('token', 'secret');
+      const message = 'Token must be a valid token';
+      
+      const response = await chai
+        .request(app).get('/login/validate').set({'Authorization': 'tokenIncorrect'});
+      expect(response.error.status).to.be.equal(401)
+      expect(response.body).to.be.deep.equal({ message })
     });
   });
 });

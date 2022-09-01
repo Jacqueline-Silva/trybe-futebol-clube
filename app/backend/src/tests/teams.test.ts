@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Team from '../database/models/Team';
-import { teamMock, teamsListMock } from './mocks/teams.mock';
+import { teamMatchesMock, teamMock, teamsListMock } from './mocks/teams.mock';
 import TeamService from '../services/teamService';
 
 
@@ -57,6 +57,33 @@ describe('/teams/:id', () => {
 
       const response = await chai
         .request(app).get('/teams/1000');
+        expect(response.error.status).to.be.equal(404)
+        expect(response.body).to.be.deep.equal({ message })
+    });
+  });
+});
+
+describe('/teams/:id/matches', () => {
+  afterEach(() => {
+    sinon.restore();
+  });
+
+  describe('Ao acessar o endpoint /teams/:id/matches com sucesso', () => {
+    it('Verifica se retorna o time com todas as suas partidas', async () => {
+      sinon.stub(Team, 'findOne').resolves(teamMatchesMock as unknown as Team);
+      const response = await chai
+        .request(app).get('/teams/2/matches');
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal(teamMatchesMock);
+    });
+  });
+  describe('Falha ao acessar o endpoint /teams/:id', () => {
+    it('Verifica se retorna mensagem de erro ao não encontrar o time', async () => {
+      sinon.stub(Team, 'findOne').resolves(null);
+      const message = 'There is no team with such id!';
+
+      const response = await chai
+        .request(app).get('/teams/1000/matches');
         expect(response.error.status).to.be.equal(404)
         expect(response.body).to.be.deep.equal({ message })
     });

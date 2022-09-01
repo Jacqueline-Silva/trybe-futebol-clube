@@ -10,6 +10,7 @@ import { createIncorrectMock, createMatchEqualTeamsMock, createMatchMock, listMa
 import MatchService from '../services/matchService';
 import { userMock } from './mocks/users.mock';
 import JwtService from '../services/jwtService';
+import { teamMatchesMock } from './mocks/teams.mock';
 
 
 
@@ -84,7 +85,7 @@ describe('/matches/:id', () => {
     sinon.restore();
   });
   it('Verifica se ao enviar os novos saldos de gols, é retornada a partida com dados atualizados', async() => {
-    sinon.stub(MatchService, 'upadateMatch').resolves(matchUpMock);
+    sinon.stub(Match, 'findByPk').resolves(matchUpMock as unknown as Team)
     
     const response = await chai.request(app).patch('/matches/1').send(updateGoalsMock);
     expect(response.status).to.be.equal(200);
@@ -113,6 +114,7 @@ describe('/matches?inProgress', () => {
     sinon.restore();
   });
   it('Verifica se é exibido somente as partidas em andamento', async() => {
+    sinon.stub(Match, 'findAll').resolves(matchesMock as Match[]);
     sinon.stub(MatchService, 'getAllInProgress').resolves(matchesInProgress);
     
     const response = await chai.request(app).get('/matches?inProgress=true');
