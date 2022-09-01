@@ -13,4 +13,10 @@ export default class TeamController {
     const teamID = await TeamService.getTeamID(+id);
     res.status(StatusCodes.OK).json(teamID);
   };
+
+  getTeamMatches = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const teamMatches = await TeamService.getTeamMatches(+id);
+    res.status(StatusCodes.OK).json(teamMatches);
+  };
 }
