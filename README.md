@@ -37,7 +37,7 @@ Desenvolver uma API REST tornando-a capaz de ser consumida pelo front-end afim d
 
 ## :pushpin: Endpoints da API
 
-*Há requisições prontas no arquivo "requests_project-tfc.har" localizado no diretório "backend", em que você somente precisará exportar para a ferramenta desejada, seja insomnia ou postman*
+*Há requisições prontas no arquivo "requests_project-tfc.har" localizado no diretório "backend", em que você somente precisará importar para a ferramenta desejada, seja insomnia ou postman*
 
 | Rotas do Login | Descrição       |  | Rotas dos Times | Descrição       |
 | :---------- | :--------- | - | :----------  | :----------  |
@@ -96,7 +96,7 @@ Em um navegador, entre no seu localhost
 **Back**:
 Para verificar os endpoints utilizados use a ferramenta de sua preferência, por exemplo o Insomnia *(como no vídeo)*
 
-*Há requisições prontas no arquivo "requests_project-tfc.har" localizado no diretório "backend", em que você somente precisará exportar para a ferramenta desejada, seja insomnia ou postman*
+*Há requisições prontas no arquivo "requests_project-tfc.har" localizado no diretório "backend", em que você somente precisará importar para a ferramenta desejada, seja insomnia ou postman*
 
 **DB**:
 Para visualizar o banco de dados faça a conexão do MySQL com a porta 3002
